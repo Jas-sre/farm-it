@@ -1,0 +1,57 @@
+CREATE DATABASE IF NOT EXISTS farmit;
+
+USE farmit;
+
+CREATE TABLE admins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50),
+    password VARCHAR(50)
+);
+
+CREATE TABLE IF NOT EXISTS farmers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    product VARCHAR(100),         -- nullable
+    contact VARCHAR(20),
+    tag VARCHAR(50),
+    location VARCHAR(100)
+);
+
+CREATE TABLE customers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50),
+    password VARCHAR(50),
+    name VARCHAR(100)
+);
+
+INSERT INTO admins (username, password) VALUES ('admin', 'admin123');
+
+INSERT INTO farmers (username, password, name, product, contact, tag, location)
+VALUES 
+('f1', 'pass1', 'Raj Patel', 'Wheat 100/kg', '9876543210', '#grains', 'Ahmedabad'),
+('f2', 'pass2', 'Lakshmi Reddy', 'Rice 90/kg', '9123456789', '#cereals', 'Hyderabad'),
+('f3', 'pass3', 'John Singh', 'Mango 60/kg', '9988776655', '#fruits', 'Nagpur'),
+('f4', 'pass4', 'Meena Sharma', 'Tomato 30/kg', '9871234567', '#vegetables', 'Jaipur'),
+('f5', 'pass5', 'Kiran Das', NULL, NULL, NULL, NULL); -- Farmer registered but hasn’t added details yet
+
+INSERT INTO customers (username, password, name)
+VALUES 
+('c1', 'cust1', 'Amit Shah'),
+('c2', 'cust2', 'Sneha Iyer'),
+('c3', 'cust3', 'Rahul Dev'),
+('c4', 'cust4', 'Priya Mehta'),
+('c5', 'cust5', 'Naveen Kumar');
+
+
+CREATE TABLE IF NOT EXISTS wishlist (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT,
+    farmer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customers(id),
+    FOREIGN KEY (farmer_id) REFERENCES farmers(id)
+);
+
+ALTER TABLE customers ADD UNIQUE (username);
+ALTER TABLE farmers ADD UNIQUE (username);

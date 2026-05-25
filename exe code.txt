@@ -1,0 +1,14 @@
+cd C:\farm_it
+
+pip install pyinstaller
+
+pyinstaller --onefile --windowed ^
+--add-data "bg.jpeg;." ^
+--add-data "farmerbg.jpg;." ^
+--add-data "loginbg.jpg;." ^
+--add-data "admin.py;." ^
+--add-data "customer.py;." ^
+--add-data "farmer.py;." ^
+--add-data "register.py;." ^
+--add-data "db.py;." ^
+main.py
